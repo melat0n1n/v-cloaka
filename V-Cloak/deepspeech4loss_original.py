@@ -5,9 +5,6 @@ from deepspeech_pytorch.model import DeepSpeech
 from typing import TYPE_CHECKING, List, Optional, Tuple, Union
 import torch
 import torchaudio
-
-torch.cuda.set_device(0)
-
 class DeepSpeech4Loss(PyTorchDeepSpeech):
     def __init__(
         self,
@@ -105,8 +102,7 @@ class DeepSpeech4Loss(PyTorchDeepSpeech):
         input_sizes = input_rates.mul_(inputs.size()[-1]).int()
 
         # Call to DeepSpeech model for prediction
-        self.DP_model.cuda()
-        outputs, output_sizes, dim = self.DP_model(inputs.to(self._device), input_sizes.to(self._device))
+        outputs, output_sizes = self.DP_model(inputs.to(self._device), input_sizes.to(self._device))
         # outputs = outputs.transpose(0, 1)
 
         # if self._version == 2:

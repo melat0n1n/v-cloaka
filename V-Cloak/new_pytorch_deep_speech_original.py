@@ -149,10 +149,10 @@ class PyTorchDeepSpeech(PytorchSpeechRecognizerMixin, SpeechRecognizerMixin, PyT
             self._version = 2
         elif str(DeepSpeech.__base__) == "<class 'pytorch_lightning.core.lightning.LightningModule'>":
             self._version = 3
-        elif str(DeepSpeech.__base__) == "<class 'pytorch_lightning.core.module.LightningModule'>":
-            self._version = 3
         else:
             raise NotImplementedError("Only DeepSpeech version 2 and DeepSpeech version 3 are currently supported.")
+
+        # self._version = 2
 
         self.verbose = verbose
 
@@ -263,8 +263,7 @@ class PyTorchDeepSpeech(PytorchSpeechRecognizerMixin, SpeechRecognizerMixin, PyT
                 self._model = load_model(device=self._device, model_path=model_path)
 
             # pack model with DP
-            # self.DP_model = torch.nn.DataParallel(self._model).to(self._device)
-            self.DP_model = self._model.to(self._device)
+            self.DP_model = torch.nn.DataParallel(self._model).to(self._device)
 
         else:
             self._model = model
@@ -389,7 +388,7 @@ class PyTorchDeepSpeech(PytorchSpeechRecognizerMixin, SpeechRecognizerMixin, PyT
 
             # Call to DeepSpeech model for prediction
             with torch.no_grad():
-                outputs, output_sizes, dim = self.DP_model(
+                outputs, output_sizes = self.DP_model(
                     inputs[begin:end].to(self._device), input_sizes[begin:end].to(self._device)
                 )
 

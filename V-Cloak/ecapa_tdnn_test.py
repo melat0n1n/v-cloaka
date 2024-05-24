@@ -1,7 +1,7 @@
 import torchaudio
 import os
 import torch
-from speechbrain.pretrained import EncoderClassifier
+from speechbrain.inference import EncoderClassifier
 
 
 class ecapa_tndnn:

@@ -58,7 +58,7 @@ class VCloakTraining(object):
         self.validate_first = validate_first
         self.restart_training_at = restart_training_at
         self.num_epochs = 65  # 5000
-        self.mini_batch_size = 256-64  # 1
+        self.mini_batch_size = 1 #256-64
 
         self.device = torch.device(
             'cuda' if torch.cuda.is_available() else 'cpu')
@@ -155,7 +155,7 @@ class VCloakTraining(object):
                                         device=self.device)
 
         # Preparing Dataset
-        self.filelist = glob.glob("Datasets/train-clean-100/*/*/*.flac")+glob.glob("Datasets/train-other-500/*/*/*.flac")
+        self.filelist = glob.glob("Datasets/LibriSpeech/train-clean-100/*/*/*.flac")
         self.n_samples = len(self.filelist)
 
         self.msker = Masker(device=self.device)
@@ -356,21 +356,21 @@ class VCloakTraining(object):
                 perturb_loss_lambda = 0.1
 
                 # ASV term
-                adv_loss_lambda = 20*1.5
+                adv_loss_lambda = 20
 
                 if score < 0.15:
                     # discriminator term
-                    G_loss_lambda = 100e-8 # 100e-6
+                    G_loss_lambda = 100e-6 # 100e-8 # 100e-6
 
                     # ASR term
                     asr_loss_lambda = 1
 
                 elif score < 0.3:
-                    G_loss_lambda = 70e-8 # 70e-6
+                    G_loss_lambda = 70e-6 # 70e-8 # 70e-6
                     asr_loss_lambda = 0.8
 
                 else:
-                    G_loss_lambda = 10e-8 # 1e-6
+                    G_loss_lambda = 1e-6 # 10e-8 # 1e-6
                     asr_loss_lambda = 0.5
             
                 assert not torch.isnan(loss_G_fake), "loss_G_fake is NaN"

@@ -1,6 +1,28 @@
 The modified source code of V-Cloak.
+
 Original code is taken from here: https://github.com/V-Cloak/V-Cloak
+
 Weights after training (43 epoch ~ 43h on A100) are located at [Google Drive](https://drive.google.com/file/d/18a9uxaoJKU6JEB_SFGv7YFLnOGp865Oo/view?usp=drive_link)
+
+Audio samples after anonimization are located at [Google Drive](https://drive.google.com/file/d/1osN5d8TXyg8HsBkdaDN8KlDwn3xpqgVb/view?usp=sharing)
+
+Audio samples after anonimization and RIR are located at [Google Drive](https://drive.google.com/file/d/1KIBR0mT3hnM9Wm8nxtTVLZckx2z4QE-E/view?usp=sharing)
+
+## Files and Directories
+
+- **VCloak_test.ipynb:** Jupyter notebook implementing the cosine similarity accuracy calculation using ECAPA-TDNN, Wespeaker and XVectorSincNet models; WER metrics calculation using S2T model.
+- **RIR.ipynb:** Jupyter notebook implementing the Room Impulse Responce calculation as an additional noise.
+- **Graphs.ipynb:** Jupyter notebook containing data and plots from tests conducted using all implemented methods and models.
+
+## Usage
+- Each Jupyter notebook contains implementations of specific methods on different datasets and network architectures. Users can run these notebooks to see the results and comparisons.
+- The `V-Cloak/Datasets` directory contains datasets used in the project. Users can add their own datasets if needed.
+- The `V-Cloak/model_checkpoint_GPU` directory contains saved training checkpoints.
+
+## Dependencies
+- This project uses PyTorch for deep learning implementations.
+- You may find a list of the necessary packages in `V-Cloak/requirements.txt` file and in .ipynb import cells.
+
 
 ## Project structure
 
